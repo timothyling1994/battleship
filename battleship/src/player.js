@@ -5,6 +5,8 @@ let player = (isPlayerOne, shipLocations) => {
 	let myTurn = isPlayerOne;
 	let isComputer = !isPlayerOne;
 	let myGameBoard = gameBoardFactory(shipLocations);
+	
+	myGameBoard.initBattleShips();
 
 	let makeMove = (inputCoords, enemyGameBoard) => {
 
@@ -14,5 +16,7 @@ let player = (isPlayerOne, shipLocations) => {
 		return {hitShip,endOfGame};
 	};
 
-	return {makeMove};
+	return {myTurn, myGameBoard, makeMove};
 };
+
+export default player;
