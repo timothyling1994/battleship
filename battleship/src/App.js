@@ -6,7 +6,8 @@ import ArrangeBoard from './components/ArrangeBoard.js';
 function App() {
 
   const [showStart,setShowStart] = useState(true);
-  const [showArrangeBoard,setShowArrangeBoard] = useState(true);
+  const [showArrangeBoard,setShowArrangeBoard] = useState(false);
+  const [name,setName] = useState();
 
   const toggleShowStart = (value) => {
     setShowStart(value);
@@ -14,14 +15,18 @@ function App() {
 
   const toggleArrangeBoard = (value) => {
     setShowArrangeBoard(value);
-  };  
+  }; 
+
+  const addName = (name) =>{
+    setName(name);
+  };
 
 
   return (
     <div className="App">
-      <div className="title">BATTLESHIP</div>
-      {showStart ? <StartGame toggleShowStart={toggleShowStart} toggleArrangeBoard={toggleArrangeBoard}/> : null}
-      {showArrangeBoard ? <ArrangeBoard/>:null}
+      <div className="title-row"><div className="title">BATTLESHIP</div></div>
+      {showStart ? <StartGame toggleShowStart={toggleShowStart} toggleArrangeBoard={toggleArrangeBoard} setName={setName}/> : null}
+      {showArrangeBoard ? <ArrangeBoard name={name}/>:null}
     </div>
   );
 }
