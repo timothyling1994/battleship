@@ -1,6 +1,6 @@
 import gameBoardFactory from "./gameBoardFactory.js";
 
-let player = (isPlayerOne, shipLocations) => {
+let playerFactory = (isPlayerOne, shipLocations) => {
 	
 	let myTurn = isPlayerOne;
 	let isComputer = !isPlayerOne;
@@ -19,4 +19,4 @@ let player = (isPlayerOne, shipLocations) => {
 	return {myTurn, myGameBoard, makeMove};
 };
 
-export default player;
+export default playerFactory;

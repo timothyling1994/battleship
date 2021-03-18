@@ -25,7 +25,7 @@ let gameBoardFactory = (shipLocations) => {
 
 			for(let j=0;j<length;j++)
 			{
-				if(battleShipLocations[i][j][0]==inputCoord[0] && battleShipLocations[i][j][1]==inputCoord[1])
+				if(battleShipLocations[i][j]==inputCoord)
 				{
 					battleShipArr[i].hit();
 					isShipHit = true;

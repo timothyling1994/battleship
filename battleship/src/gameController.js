@@ -1,4 +1,4 @@
-import player from "./player.js";
+import playerFactory from "./playerFactory.js";
 
 let gameController = () => { 
 	let humanPlayer;
@@ -6,8 +6,8 @@ let gameController = () => {
 
 	let gameInit = (humanPlayerShipLocs,computerPlayerShipLocs) => {
 
-		humanPlayer = player(true,humanPlayerShipLocs);
-		computerPlayer = player(false,computerPlayerShipLocs);
+		humanPlayer = playerFactory(true,humanPlayerShipLocs);
+		computerPlayer = playerFactory(false,computerPlayerShipLocs);
 	}
 
 	let turnController = (inputCoords) => {

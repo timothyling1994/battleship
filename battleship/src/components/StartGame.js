@@ -6,8 +6,8 @@ function StartGame(props){
 		let start_game_container = document.querySelector(".start-game");
 		start_game_container.classList.add("fadeOut");
 		setTimeout(function(){
-			props.setName(document.querySelector(".name-input").value);
-			props.toggleShowStart(false);
+			props.addName(document.querySelector(".name-input").value);
+			props.toggleStartPage(false);
 			props.toggleArrangeBoard(true);
 		}, 2000);
 	
