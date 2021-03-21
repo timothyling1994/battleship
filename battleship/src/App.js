@@ -2,6 +2,7 @@ import './App.css';
 import {useState} from 'react';
 import StartGame from './components/StartGame.js';
 import ArrangeBoard from './components/ArrangeBoard.js';
+import GamePage from './components/GamePage.js';
 
 function App() {
 
@@ -29,8 +30,7 @@ function App() {
   };
 
   const storeShipLocations = (arr) => {
-      console.log(arr);
-      console.log(arr[0].length);
+      setStoreShipLocs(arr);
   };
 
 
@@ -39,6 +39,7 @@ function App() {
       <div className="title-row"><div className="title" onClick={()=>{window.location.reload();return false;}}>BATTLESHIP</div></div>
       {showStart ? <StartGame toggleStartPage={toggleStartPage} toggleArrangeBoard={toggleArrangeBoard} addName={addName}/> : null}
       {showArrangeBoard ? <ArrangeBoard name={name} toggleGamePage={toggleGamePage} storeShipLocations={storeShipLocations}/>:null}
+      {showGamePage ? <GamePage storeShipLocs={storeShipLocs}/> : null}
     </div>
   );
 }

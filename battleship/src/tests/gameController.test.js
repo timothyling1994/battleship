@@ -133,3 +133,4 @@ it('player 1 turn - hit - ALL SHIPS SUNK',() => {
 it('player 2 turn - hit - ALL SHIPS SUNK',() => {
 	expect(game.turnController([18])).toEqual({hitShip:true, endOfGame:true});
 });
+

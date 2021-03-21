@@ -6,13 +6,12 @@ function ArrangeBoard(props){
 
 	const GRID_DIMENSION = 10;
 	let grid_element_arr = [];
-	const [shipLocs,setShipLocs] = useState([]);
-	//const shipNames = ["","","","","carrier"];
 
+	const [shipLocs,setShipLocs] = useState([]);
 	const [orientation,setOrientation] = useState("x-axis");
 	const [currentCarrierLength,setCurrentCarrierLength] = useState(5);
 
-	const initBoard = () => {
+	const initArrangeBoard = () => {
 		for(let i = 0;i <GRID_DIMENSION*GRID_DIMENSION;i++)
 		{
 			grid_element_arr.push(<div className="grid-element" id={i} onClick={placeShip} onMouseEnter={highlight} onMouseLeave={removeHighlight}></div>);
@@ -23,6 +22,24 @@ function ArrangeBoard(props){
 
 		let target_num = parseInt(target.target.id);
 		let div = document.getElementById(target_num.toString());
+
+		/*if(orientation==="x-axis")
+		{
+			let searchStr = "";
+
+			for(let i=0;i<currentCarrierLength;i++)
+			{
+				searchStr += ("#\\3"+(target_num+i)+",");
+			}
+		
+			let nodeList = document.querySelectorAll(searchStr);
+			console.log(nodeList);
+		}
+		else
+		{
+
+		}*/
+
 
 		if(!div.classList.contains("clicked"))
 		{
@@ -74,8 +91,19 @@ function ArrangeBoard(props){
 
 		let target_num = parseInt(target.target.id);
 		let div = document.getElementById(target_num.toString());
+		let canHighlight = true;
 
-		if(!div.classList.contains("clicked"))
+		for(let i = 0;i<currentCarrierLength;i++)
+		{
+			let divToHighlight = document.getElementById((target_num+i).toString());	
+			if(divToHighlight.classList.contains("clicked"))
+			{
+				canHighlight=false;
+			}
+			
+		}
+
+		if(canHighlight)
 		{
 			if(orientation==="x-axis")
 			{
@@ -111,11 +139,21 @@ function ArrangeBoard(props){
 	const removeHighlight = (target) => {
 
 		let target_num = parseInt(target.target.id);
-		let div = document.getElementById(target_num.toString());
+		//let div = document.getElementById(target_num.toString());
 
-		if(!div.classList.contains("clicked"))
+		if(orientation==="x-axis")
 		{
-			if(orientation==="x-axis")
+			let canRemoveHighlight = true;
+			for(let i =0; i<currentCarrierLength;i++)
+			{
+				let divToHighlight = document.getElementById((target_num+i).toString());
+				if(divToHighlight.classList.contains("clicked"))
+				{
+					canRemoveHighlight = false;
+				}
+			}
+
+			if(canRemoveHighlight)
 			{
 				let row_num = Math.floor(target_num/10);
 
@@ -128,8 +166,20 @@ function ArrangeBoard(props){
 					}
 				}
 			}
+		}
+		else
+		{
+			let canRemoveHighlight = true;
+			for(let i =0; i<currentCarrierLength;i++)
+			{
+				let divToHighlight = document.getElementById((target_num+(i*10)).toString());
+				if(divToHighlight.classList.contains("clicked"))
+				{
+					canRemoveHighlight = false;
+				}
+			}
 
-			else
+			if(canRemoveHighlight)
 			{
 				let column_num = target_num%10;
 
@@ -141,10 +191,9 @@ function ArrangeBoard(props){
 						divToHighlight.classList.remove("highlight");
 					}
 				}
-
 			}
+		
 		}
-
 	
 	};
 
@@ -173,7 +222,7 @@ function ArrangeBoard(props){
 		}
 	};
 
-	initBoard();
+	initArrangeBoard();
 	
 	return(
 		<div className="arrange-board">
