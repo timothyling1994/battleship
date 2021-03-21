@@ -21,68 +21,69 @@ function ArrangeBoard(props){
 	const placeShip = (target) => {
 
 		let target_num = parseInt(target.target.id);
-		let div = document.getElementById(target_num.toString());
+		let canPlace = true;
 
-		/*if(orientation==="x-axis")
+		let row_num = Math.floor(target_num/10);
+		let column_num = target_num%10;
+
+		if((target_num+currentCarrierLength>(10*(row_num+1)) && orientation==="x-axis") || (target_num+(currentCarrierLength*10)>(100+column_num) && orientation==="y-axis"))
 		{
-			let searchStr = "";
-
-			for(let i=0;i<currentCarrierLength;i++)
-			{
-				searchStr += ("#\\3"+(target_num+i)+",");
-			}
-		
-			let nodeList = document.querySelectorAll(searchStr);
-			console.log(nodeList);
+			canPlace=false;
 		}
+
 		else
 		{
+			for(let i = 0;i<currentCarrierLength;i++)
+			{
+				if(orientation==="x-axis")
+				{
+					let divToHighlight = document.getElementById((target_num+i).toString());
+					if(divToHighlight.classList.contains("clicked"))
+					{
+						canPlace=false;
+					}	
+				}
+				else
+				{
+					let divToHighlight = document.getElementById((target_num+(i*10)).toString());
+					if(divToHighlight.classList.contains("clicked"))
+					{
+						canPlace=false;
+					}
+				}
+				
+			}
+		}
 
-		}*/
-
-
-		if(!div.classList.contains("clicked"))
+		if(canPlace)
 		{
 			if(orientation==="x-axis")
 			{
-				let row_num = Math.floor(target_num/10);
-
-				if(target_num+currentCarrierLength<=(10*(row_num+1)))
+				let currentShipLoc = [];
+				for(let i = 0;i<currentCarrierLength;i++)
 				{
-					let currentShipLoc = [];
-					for(let i = 0;i<currentCarrierLength;i++)
-					{
-						let divToHighlight = document.getElementById((target_num+i).toString());	
-						divToHighlight.classList.add("clicked");
-						divToHighlight.classList.add("highlight");
-						currentShipLoc.push([target_num+i]);
-
-					}
-					console.log(currentShipLoc);
-					shipLocs.unshift(currentShipLoc);
+					let divToHighlight = document.getElementById((target_num+i).toString());	
+					divToHighlight.classList.add("clicked");
+					divToHighlight.classList.add("highlight");
+					currentShipLoc.push([target_num+i]);
 				}
+				shipLocs.unshift(currentShipLoc);
+				
 			}
 
 			else
 			{
-				let column_num = target_num%10;
-
-				if(target_num+(currentCarrierLength*10)<=(100+column_num))
+				let currentShipLoc = [];
+				for(let i = 0;i<currentCarrierLength;i++)
 				{
-					let currentShipLoc = [];
-					for(let i = 0;i<currentCarrierLength;i++)
-					{
-						let divToHighlight = document.getElementById((target_num+(i*10)).toString());	
-						divToHighlight.classList.add("clicked");
-						divToHighlight.classList.add("highlight");
-						currentShipLoc.push([target_num+i]);
-					}
-					console.log(currentShipLoc);
-					shipLocs.unshift(currentShipLoc);
+					let divToHighlight = document.getElementById((target_num+(i*10)).toString());	
+					divToHighlight.classList.add("clicked");
+					divToHighlight.classList.add("highlight");
+					currentShipLoc.push([target_num+(i*10)]);
 				}
+				shipLocs.unshift(currentShipLoc);
 
 			}
-
 			decrementCarrierLength();
 		}
 	};
@@ -90,46 +91,59 @@ function ArrangeBoard(props){
 	const highlight = (target) => {
 
 		let target_num = parseInt(target.target.id);
-		let div = document.getElementById(target_num.toString());
 		let canHighlight = true;
 
-		for(let i = 0;i<currentCarrierLength;i++)
+		let row_num = Math.floor(target_num/10);
+		let column_num = target_num%10;
+
+		if((target_num+currentCarrierLength>(10*(row_num+1)) && orientation==="x-axis") || (target_num+(currentCarrierLength*10)>(100+column_num) && orientation==="y-axis"))
 		{
-			let divToHighlight = document.getElementById((target_num+i).toString());	
-			if(divToHighlight.classList.contains("clicked"))
+			canHighlight=false;
+		}
+
+		else
+		{
+			for(let i = 0;i<currentCarrierLength;i++)
 			{
-				canHighlight=false;
+				if(orientation==="x-axis")
+				{
+					let divToHighlight = document.getElementById((target_num+i).toString());
+					if(divToHighlight.classList.contains("clicked"))
+					{
+						canHighlight=false;
+					}	
+				}
+				else
+				{
+					let divToHighlight = document.getElementById((target_num+(i*10)).toString());
+					if(divToHighlight.classList.contains("clicked"))
+					{
+						canHighlight=false;
+					}
+				}
+				
 			}
-			
 		}
 
 		if(canHighlight)
 		{
 			if(orientation==="x-axis")
 			{
-				let row_num = Math.floor(target_num/10);
-
-				if(target_num+currentCarrierLength<=(10*(row_num+1)))
+				for(let i = 0;i<currentCarrierLength;i++)
 				{
-					for(let i = 0;i<currentCarrierLength;i++)
-					{
-						let divToHighlight = document.getElementById((target_num+i).toString());	
-						divToHighlight.classList.add("highlight");
-					}
+					let divToHighlight = document.getElementById((target_num+i).toString());	
+					divToHighlight.classList.add("highlight");
 				}
+				
 			}
 
 			else
 			{
-				let column_num = target_num%10;
-
-				if(target_num+(currentCarrierLength*10)<=(100+column_num))
+		
+				for(let i = 0;i<currentCarrierLength;i++)
 				{
-					for(let i = 0;i<currentCarrierLength;i++)
-					{
-						let divToHighlight = document.getElementById((target_num+(i*10)).toString());	
-						divToHighlight.classList.add("highlight");
-					}
+					let divToHighlight = document.getElementById((target_num+(i*10)).toString());	
+					divToHighlight.classList.add("highlight");
 				}
 
 			}
@@ -139,60 +153,62 @@ function ArrangeBoard(props){
 	const removeHighlight = (target) => {
 
 		let target_num = parseInt(target.target.id);
-		//let div = document.getElementById(target_num.toString());
+		let canRemoveHighlight = true;
 
-		if(orientation==="x-axis")
+		let row_num = Math.floor(target_num/10);
+		let column_num = target_num%10;
+
+		if((target_num+currentCarrierLength>(10*(row_num+1)) && orientation==="x-axis") || (target_num+(currentCarrierLength*10)>(100+column_num) && orientation==="y-axis"))
 		{
-			let canRemoveHighlight = true;
-			for(let i =0; i<currentCarrierLength;i++)
-			{
-				let divToHighlight = document.getElementById((target_num+i).toString());
-				if(divToHighlight.classList.contains("clicked"))
-				{
-					canRemoveHighlight = false;
-				}
-			}
-
-			if(canRemoveHighlight)
-			{
-				let row_num = Math.floor(target_num/10);
-
-				if(target_num+currentCarrierLength<=(10*(row_num+1)))
-				{
-					for(let i = 0;i<currentCarrierLength;i++)
-					{
-						let divToHighlight = document.getElementById((target_num+i).toString());	
-						divToHighlight.classList.remove("highlight");
-					}
-				}
-			}
+			canRemoveHighlight=false;
 		}
+
 		else
 		{
-			let canRemoveHighlight = true;
-			for(let i =0; i<currentCarrierLength;i++)
+			for(let i = 0;i<currentCarrierLength;i++)
 			{
-				let divToHighlight = document.getElementById((target_num+(i*10)).toString());
-				if(divToHighlight.classList.contains("clicked"))
+				if(orientation==="x-axis")
 				{
-					canRemoveHighlight = false;
-				}
-			}
-
-			if(canRemoveHighlight)
-			{
-				let column_num = target_num%10;
-
-				if(target_num+(currentCarrierLength*10)<=(100+column_num))
-				{
-					for(let i = 0;i<currentCarrierLength;i++)
+					let divToHighlight = document.getElementById((target_num+i).toString());
+					if(divToHighlight.classList.contains("clicked"))
 					{
-						let divToHighlight = document.getElementById((target_num+(i*10)).toString());	
-						divToHighlight.classList.remove("highlight");
+						canRemoveHighlight=false;
+					}	
+				}
+				else
+				{
+					let divToHighlight = document.getElementById((target_num+(i*10)).toString());
+					if(divToHighlight.classList.contains("clicked"))
+					{
+						canRemoveHighlight=false;
 					}
 				}
+				
 			}
+		}
+
+		if(canRemoveHighlight)
+		{
+			if(orientation==="x-axis")
+			{
+				for(let i = 0;i<currentCarrierLength;i++)
+				{
+					let divToHighlight = document.getElementById((target_num+i).toString());	
+					divToHighlight.classList.remove("highlight");
+				}
+				
+			}
+
+			else
+			{
 		
+				for(let i = 0;i<currentCarrierLength;i++)
+				{
+					let divToHighlight = document.getElementById((target_num+(i*10)).toString());	
+					divToHighlight.classList.remove("highlight");
+				}
+
+			}
 		}
 	
 	};
