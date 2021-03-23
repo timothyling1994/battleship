@@ -221,9 +221,16 @@ function ArrangeBoard(props){
 		}
 		else
 		{
+
 			setCurrentCarrierLength(currentCarrierLength-1);
 			props.storeShipLocations(shipLocs);
-			props.toggleGamePage();
+
+			let arrange_board_container = document.querySelector(".arrange-board");
+			arrange_board_container.classList.add("fadeOut");
+			setTimeout(function(){
+				props.toggleArrangeBoard(false);
+				props.toggleGamePage(true);
+			}, 2000);
 		}
 	};
 
@@ -244,7 +251,7 @@ function ArrangeBoard(props){
 		<div className="arrange-board">
 			<div className="place-carriers-label">{props.name}, PLACE YOUR CARRIERS</div>
 			<div className="change-orientation" onClick={changeOrientation}>{orientation.toUpperCase()}</div>
-			<div className="gameboard-container">
+			<div className="arrange-gameboard-container">
 				<div className="gameboard">
 					{grid_element_arr.map((gridelement)=>gridelement)}
 				</div>

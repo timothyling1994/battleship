@@ -38,8 +38,8 @@ function App() {
     <div className="App">
       <div className="title-row"><div className="title" onClick={()=>{window.location.reload();return false;}}>BATTLESHIP</div></div>
       {showStart ? <StartGame toggleStartPage={toggleStartPage} toggleArrangeBoard={toggleArrangeBoard} addName={addName}/> : null}
-      {showArrangeBoard ? <ArrangeBoard name={name} toggleGamePage={toggleGamePage} storeShipLocations={storeShipLocations}/>:null}
-      {showGamePage ? <GamePage storeShipLocs={storeShipLocs}/> : null}
+      {showArrangeBoard ? <ArrangeBoard name={name} toggleArrangeBoard={toggleArrangeBoard} toggleGamePage={toggleGamePage} storeShipLocations={storeShipLocations}/>:null}
+      {showGamePage ? <GamePage name={name} storeShipLocs={storeShipLocs}/> : null}
     </div>
   );
 }

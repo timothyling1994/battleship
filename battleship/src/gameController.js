@@ -5,12 +5,12 @@ let gameController = () => {
 	let humanPlayer;
 	let computerPlayer;
 
-	let gameInit = (humanPlayerShipLocs) => {
+	let gameInit = (humanPlayerShipLocs,computerPlayerShipLocs) => {
 
 		humanPlayer = playerFactory(true,humanPlayerShipLocs);
 
-		let computerPlayerShipLocs = getComputerShipLocs();
-		computerPlayer = playerFactory(false,[[0],[1,2],[3,4,5],[10,11,12,13],[14,15,16,17,18]]);
+		//let computerPlayerShipLocs = getComputerShipLocs();
+		computerPlayer = playerFactory(false,computerPlayerShipLocs);
 	}
 
 	let turnController = (inputCoords) => {
@@ -30,9 +30,31 @@ let gameController = () => {
 		}
 	}
 
-	let getComputerShipLocs = () => {
+	let getComputersMove = () => {
+		let validMove = false;
+		let selectedIndex;
 
-		//let finishedPlacingShips = false;
+		while(!validMove)
+		{
+			selectedIndex = Math.floor(Math.random()*100);
+			console.log("selectedIndex:"+selectedIndex);
+			let selectedDiv = document.getElementById(selectedIndex);
+			if(!selectedDiv.classList.contains("clicked"))
+			{
+				validMove = true;
+			}
+			else
+			{
+				console.log("repeated");
+			}
+		}
+
+		return selectedIndex;
+
+	};
+
+	/*let getComputerShipLocs = () => {
+
 		let selectedSpots = [];
 		let currentCarrierLength = 5;
 
@@ -40,11 +62,11 @@ let gameController = () => {
 		{
 			let randomIndex = Math.floor(Math.random()*100);
 			let randomRowColumn = Math.floor(Math.random()*2);
-			
-		}
-	};
 
-	return {gameInit,turnController};
+		}
+	};*/
+
+	return {gameInit,turnController,getComputersMove};
 };
 
 export default gameController;
